@@ -212,7 +212,7 @@ flutter run
 
 ---
 
-## Arquivos que NÃO devem ser enviados, porém por ser um teste os arquivos vão para o repositório também!
+## Arquivos que NÃO devem ser enviados.
 
 Adicionar ao `.gitignore`:
 
@@ -224,7 +224,7 @@ ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
 ```
 
-O projeto deverá ser configurado novamente utilizando o FlutterFire CLI, caso não tem os arquivos mencionados acima.
+O projeto deverá ser configurado novamente utilizando o FlutterFire CLI.
 
 ---
 
