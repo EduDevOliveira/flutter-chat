@@ -49,6 +49,11 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
+  Future<void> setAway({required bool status}) async {
+    await _remote.setAway(status: status);
+  }
+
+  @override
   Future<void> setOffline() async {
     await _remote.setOffline();
   }

@@ -5,6 +5,9 @@ import 'package:flutter_chat/features/auth/domain/repositories/i_auth_repository
 import 'package:flutter_chat/features/auth/domain/usecases/auth_state_use_case.dart';
 import 'package:flutter_chat/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:flutter_chat/features/auth/domain/usecases/sign_up_use_case.dart';
+import 'package:flutter_chat/features/chat/domain/usecases/set_away_use_case.dart';
+import 'package:flutter_chat/features/chat/domain/usecases/set_offline_use_case.dart';
+import 'package:flutter_chat/features/chat/domain/usecases/set_online_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_provider.g.dart';
@@ -38,4 +41,22 @@ SignInUseCase signInUseCase(Ref ref) {
 AuthStateUseCase authStateUseCase(Ref ref) {
   final repository = ref.watch(authRepositoryProvider);
   return AuthStateUseCase(repository: repository);
+}
+
+@riverpod
+SetOnlineUseCase setOnlineUseCase(Ref ref) {
+  final repository = ref.watch(authRepositoryProvider);
+  return SetOnlineUseCase(repository: repository);
+}
+
+@riverpod
+SetOfflineUseCase setOfflineUseCase(Ref ref) {
+  final repository = ref.watch(authRepositoryProvider);
+  return SetOfflineUseCase(repository: repository);
+}
+
+@riverpod
+SetAwayUseCase setAbsentUseCase(Ref ref) {
+  final repository = ref.watch(authRepositoryProvider);
+  return SetAwayUseCase(repository: repository);
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final class AppProviderObserver extends ProviderObserver {
+final class AppProviderObserver extends  ProviderObserver {
   @override
   void didUpdateProvider(
     ProviderObserverContext context,

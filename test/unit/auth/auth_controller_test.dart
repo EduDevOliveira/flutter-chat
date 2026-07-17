@@ -32,6 +32,7 @@ void main() {
     name: tName,
     email: tEmail,
     online: true,
+    away: false,
     lastSeen: DateTime.now(),
   );
   const tFailureMessage = 'Algo deu errado';

@@ -10,6 +10,7 @@ abstract class UserEntity with _$UserEntity {
     required String name,
     required String email,
     required bool online,
+    required bool away,
     DateTime? lastSeen,
   }) = _UserEntity;
 

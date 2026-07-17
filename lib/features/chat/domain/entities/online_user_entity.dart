@@ -8,5 +8,6 @@ abstract class OnlineUserEntity with _$OnlineUserEntity {
     required String id,
     required String name,
     required bool online,
+    required bool away,
   }) = _OnlineUserEntity;
 }

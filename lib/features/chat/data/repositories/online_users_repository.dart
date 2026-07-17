@@ -11,11 +11,4 @@ class OnlineUsersRepository implements IOnlineUsersRepository {
   Stream<List<OnlineUserEntity>> getOnlineUsers() {
     return _remote.getOnlineUsers();
   }
-
-  @override
-  Future<void> sendMessage({
-    required String message,
-  }) {
-    return _remote.sendMessage(message: message);
-  }
 }

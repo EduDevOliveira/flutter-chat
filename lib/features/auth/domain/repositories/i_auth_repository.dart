@@ -16,6 +16,8 @@ abstract interface class IAuthRepository {
     required String password,
   });
 
+  Future<void> setAway({required bool status});
+
   Future<void> setOnline();
 
   Future<void> setOffline();

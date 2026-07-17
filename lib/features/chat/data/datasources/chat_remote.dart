@@ -25,39 +25,30 @@ class ChatRemote implements IChatRemote {
       return const Stream.empty();
     }
 
-    return _getMessageCollection().handleError((error) {
-      if (error is FirebaseException) {
-        throw AppException.firestore(error.code);
-      }
-
-      if (error is SocketException) {
-        throw const AppException.network();
-      }
-
-      throw AppException.unknown(error.toString());
-    });
-  }
-
-  Stream<List<MessageEntity>> _getMessageCollection() {
-    return _firestore
-        .collection('messages')
+    return _messagesCollection
         .orderBy('createdAt')
         .snapshots()
-        .map(
-          (snapshot) => snapshot.docs.map(
-            (data) {
-              return MessageEntity(
-                id: data.id,
-                senderId: data['senderId'],
-                senderName: data['senderName'],
-                message: data['message'],
-                createdAt:
-                    (data['createdAt'] as Timestamp?)?.toDate() ??
-                    DateTime.now(),
-              );
-            },
-          ).toList(),
+        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList())
+        .handleError(_mapFirestoreError);
+  }
+
+  CollectionReference<MessageEntity> get _messagesCollection {
+    return _firestore
+        .collection('messages')
+        .withConverter<MessageEntity>(
+          fromFirestore: MessageEntity.fromFirestore,
+          toFirestore: (message, _) => message.toFirestore(),
         );
+  }
+
+  void _mapFirestoreError(Object error) {
+    if (error is FirebaseException) {
+      throw AppException.firestore(error.code);
+    }
+    if (error is SocketException) {
+      throw const AppException.network();
+    }
+    throw AppException.unknown(error.toString());
   }
 
   @override

@@ -4,7 +4,6 @@ import 'package:flutter_chat/features/chat/domain/entities/online_user_entity.da
 
 abstract interface class IOnlineUsersRemote {
   Stream<List<OnlineUserEntity>> getOnlineUsers();
-  Future<void> sendMessage({required String message});
 }
 
 class OnlineUsersRemote implements IOnlineUsersRemote {
@@ -28,16 +27,11 @@ class OnlineUsersRemote implements IOnlineUsersRemote {
                     id: data.id,
                     name: data['name'],
                     online: data['online'],
+                    away: data['away'],
                   );
                 },
               )
               .toList(),
         );
-  }
-  
-  @override
-  Future<void> sendMessage({required String message}) async{
-    // TODO: implement sendMesse
-    throw UnimplementedError();
   }
 }

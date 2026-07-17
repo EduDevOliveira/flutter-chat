@@ -19,6 +19,8 @@ abstract interface class IAuthRemote {
 
   Stream<UserEntity?> authStateChanges();
 
+  Future<void> setAway({required bool status});
+
   Future<void> setOnline();
 
   Future<void> setOffline();
@@ -51,6 +53,7 @@ class AuthRemote implements IAuthRemote {
           email: document['email'],
           name: document['name'],
           online: document['online'],
+          away: document['away'],
           lastSeen: (document['lastSeen'] as Timestamp).toDate(),
         );
       },
@@ -80,6 +83,7 @@ class AuthRemote implements IAuthRemote {
         email: document['email'],
         name: document['name'],
         online: document['online'],
+        away: document['away'],
         lastSeen: (document['lastSeen'] as Timestamp).toDate(),
       );
     } on FirebaseAuthException catch (e) {
@@ -118,6 +122,7 @@ class AuthRemote implements IAuthRemote {
         name: name,
         email: email,
         online: true,
+        away: false,
       );
 
       await createUser(userModel);
@@ -140,6 +145,7 @@ class AuthRemote implements IAuthRemote {
         'name': user.name,
         'email': user.email,
         'online': true,
+        'away': false,
         'lastSeen': FieldValue.serverTimestamp(),
       });
     } on FirebaseAuthException catch (e) {
@@ -162,6 +168,28 @@ class AuthRemote implements IAuthRemote {
 
       await _firestore.collection('users').doc(uid).update({
         'online': false,
+        'lastSeen': FieldValue.serverTimestamp(),
+      });
+    } on FirebaseAuthException catch (e) {
+      throw AppException.auth(e.code);
+    } on FirebaseException catch (e) {
+      throw AppException.firestore(e.code);
+    } on SocketException {
+      throw const AppException.network();
+    } catch (e) {
+      throw AppException.unknown(e.toString());
+    }
+  }
+
+  @override
+  Future<void> setAway({required bool status}) async {
+    try {
+      final uid = _firebaseAuth.currentUser?.uid;
+
+      if (uid == null) return;
+
+      await _firestore.collection('users').doc(uid).update({
+        'away': status,
         'lastSeen': FieldValue.serverTimestamp(),
       });
     } on FirebaseAuthException catch (e) {

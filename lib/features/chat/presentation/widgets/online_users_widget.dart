@@ -42,7 +42,7 @@ class OnlineUsersWidget extends ConsumerWidget {
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: users.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 12),
+                separatorBuilder: (_, _) => const SizedBox(width: 12),
                 itemBuilder: (_, index) {
                   final user = users[index];
 
@@ -56,12 +56,14 @@ class OnlineUsersWidget extends ConsumerWidget {
                               user.name.substring(0, 1).toUpperCase(),
                             ),
                           ),
-                          const Positioned(
+                          Positioned(
                             right: 0,
                             bottom: 0,
                             child: CircleAvatar(
                               radius: 6,
-                              backgroundColor: Colors.green,
+                              backgroundColor: user.away
+                                  ? Colors.amberAccent
+                                  : Colors.green,
                             ),
                           ),
                         ],
