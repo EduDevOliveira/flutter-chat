@@ -1,0 +1,14 @@
+{
+    "editor.fontFamily": "'Fira Code'",
+    "editor.fontLigatures": "'calt', 'liga'",
+    "[dart]": {
+        "editor.formatOnSave": false,
+        "editor.formatOnType": false,
+        "editor.rulers": [120],
+        "editor.tabSize": 2
+    },
+    "files.exclude": {
+        "**/*.g.dart": true,
+        "**/*.freezed.dart": true
+    }
+}
